@@ -1,0 +1,25 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+
+int main(void) {
+	int t, k, n, sum;
+	int rows[14];
+	
+	scanf("%d", &t);
+	for (int i = 0; i < t; i++) {
+		if (i != 0) putchar('\n');
+		scanf("%d\n%d", &k, &n);
+		for (int b = 0; b < 14; b++) {
+			rows[b] = b + 1;
+		}
+		for (int j = 1; j <= k; j++) {
+			for (int l = n; l >= 0; l--) {
+				for (int p = 0; p < l ; p++)
+				{
+					rows[l] += rows[p];
+				}
+			}
+		}
+		printf("%d", rows[n - 1]);
+	};
+}
