@@ -1,0 +1,39 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h> 
+
+int tempi = 1, tempj = 1, rows[15][15];
+
+void apt(int k, int n) {
+	if (tempi <= k || (tempi <= k && tempj < n)) {
+		for (int i = tempi; i <= k; i++) {
+			int tempCol = i == k ? n : 14;
+			for (int j = tempj; j <= tempCol; j++) {
+				rows[i][j] = rows[i - 1][j] + rows[i][j - 1];
+			}
+			tempj = 1;
+		}
+		if (n == 14) {
+			tempi = k + 1;
+			tempj = n;
+		}
+		else {
+			tempi = k;
+			tempj = n + 1;
+		}
+	}
+	printf("%d", rows[k][n]);
+	return;
+}
+
+int main(void)
+{
+	int t, k, n, i;
+	for (i = 1; i <= 15; i++) rows[0][i] = i;
+	for (i = 0; i < 15; i++) rows[i][0] = 0;
+	scanf("%d", &t);
+	for (i = 0; i < t; i++) {
+		if (i != 0) putchar('\n');
+		scanf("%d\n%d", &k, &n);
+		apt(k, n);
+	}
+}
