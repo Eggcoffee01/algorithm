@@ -1,0 +1,15 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h> 
+
+int main(void)
+{
+	int i, n, res = -1;
+	scanf("%d", &n);
+	for (i = n / 5; i >= 0; i--) {
+		if ((n - 5 * i) % 3 == 0) {
+			res = i + (n - (5 * i)) / 3;
+			break;	
+		}
+	}
+	printf("%d", res);
+}
