@@ -1,0 +1,64 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h> 
+
+char a[10002], b[10002];
+int res[10002];
+
+int findindex(char* array) {
+	int temp;
+	for (int i = 0; i < 10002; i++) {
+		if (array[i] == NULL) {
+			temp = i;
+			break;
+		}
+	}
+	return temp;
+}
+
+int main(void)
+{
+	int i, aindex, bindex, temp, p = 0;
+	scanf("%s%s", a, b);
+	aindex = findindex(a);
+	bindex = findindex(b);
+	int bigger = aindex > bindex ? aindex : bindex;
+	aindex--;
+	bindex--;
+	for (i = bigger; aindex >= 0 && bindex >= 0; i--) {
+		temp = a[aindex--] - 48 + b[bindex--] - 48 + p;
+		p = 0;
+		if (temp >= 10) {
+			p = 1;
+			temp %= 10;
+		}
+		res[i] = temp;
+	}
+	if (aindex == -1) {
+		for (int j = i; bindex >= 0; j--) {
+			temp = b[bindex--] - 48 + p;
+			p = 0;
+			if (temp >= 10) {
+				p = 1;
+				temp %= 10;
+			}
+			res[j] = temp;
+		}
+	}
+	else {
+		for (int j = i; aindex >= 0; j--) {
+			temp = a[aindex--] - 48 + p;
+			p = 0;
+			if (temp >= 10) {
+				p = 1;
+				temp %= 10;
+			}
+			res[j] = temp;
+
+		}
+	}
+	if (p != 0) res[0] = p;
+	temp = res[0] == 0 ? 1 : 0;
+	for (int i = temp; i <= bigger; i++) {
+		printf("%d", res[i]);
+	}
+}
